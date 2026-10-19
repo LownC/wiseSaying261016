@@ -42,10 +42,16 @@ public class App {
             else if(cmd.equals("삭제")){
                 System.out.print("삭제?id=");
                 int deleteId = Integer.parseInt(scanner.nextLine().trim());
-                wiseSayings[deleteId-1].id=0;
-                wiseSayings[deleteId-1].author = null;
-                wiseSayings[deleteId-1].content = null;
-                System.out.println("%d번 명언이 삭제되었습니다.".formatted(deleteId));
+                if(wiseSayings[deleteId-1].id == 0){
+                    System.out.println("%d번 명언은 존재하지 않습니다.".formatted(deleteId));
+                }
+                else{
+                    wiseSayings[deleteId-1].id=0;
+                    wiseSayings[deleteId-1].author = null;
+                    wiseSayings[deleteId-1].content = null;
+                    System.out.println("%d번 명언이 삭제되었습니다.".formatted(deleteId));
+                }
+
             }
         }
 
