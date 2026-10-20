@@ -49,18 +49,18 @@ public class App {
     }
 
     void modifyContentAndAuthor(int modifyId) {
-        System.out.println("명언(기존) %s".formatted(wiseSayings[modifyId-1].content));
+        System.out.println("명언(기존) %s".formatted(wiseSayings[modifyId - 1].getContent()));
         System.out.print("명언 : ");
-        wiseSayings[modifyId-1].content = scanner.nextLine().trim();
+        wiseSayings[modifyId - 1].setContent(scanner.nextLine().trim());
 
-        System.out.println("작가(기존) : %s".formatted(wiseSayings[modifyId-1].author));
+        System.out.println("작가(기존) : %s".formatted(wiseSayings[modifyId - 1].getAuthor()));
         System.out.print("작가 : ");
-        wiseSayings[modifyId-1].author = scanner.nextLine().trim();
+        wiseSayings[modifyId - 1].setAuthor(scanner.nextLine().trim());
     }
 
     boolean isWiseSayingExistById(int deleteId) {
         boolean isWiseSayingExist = true;
-        if(deleteId-1 >= wiseSayingLastIndex || wiseSayings[deleteId-1].id == 0)
+        if(deleteId-1 >= wiseSayingLastIndex || wiseSayings[deleteId - 1].getId() == 0)
             isWiseSayingExist = false;
 
         return isWiseSayingExist;
@@ -72,9 +72,9 @@ public class App {
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(deleteId));
         }
         else{
-            wiseSayings[deleteId-1].id=0;
-            wiseSayings[deleteId-1].author = null;
-            wiseSayings[deleteId-1].content = null;
+            wiseSayings[deleteId - 1].setId(0);
+            wiseSayings[deleteId - 1].setAuthor(null);
+            wiseSayings[deleteId - 1].setContent(null);
             System.out.println("%d번 명언이 삭제되었습니다.".formatted(deleteId));
         }
     }
@@ -85,9 +85,9 @@ public class App {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("-------------------");
         for(int i=0; i < sortedWiseSayings.length; i++){
-            if(sortedWiseSayings[i].id == 0)
+            if(sortedWiseSayings[i].getId() == 0)
                 continue;
-            System.out.println("%d / %s / %s".formatted(sortedWiseSayings[i].id, sortedWiseSayings[i].author, sortedWiseSayings[i].content));
+            System.out.println("%d / %s / %s".formatted(sortedWiseSayings[i].getId(), sortedWiseSayings[i].getAuthor(), sortedWiseSayings[i].getContent()));
         }
     }
 
@@ -103,13 +103,18 @@ public class App {
     }
 
     void addWiseSaying(){
-        wiseSayings[wiseSayingLastIndex] = new WiseSaying();
         System.out.print("명언 : ");
-        wiseSayings[wiseSayingLastIndex].content = scanner.nextLine().trim();
+        String content = scanner.nextLine().trim();
+
         System.out.print("작가 : ");
-        wiseSayings[wiseSayingLastIndex].author = scanner.nextLine().trim();
-        wiseSayings[wiseSayingLastIndex].id = wiseSayingLastIndex+1;
+        String author = scanner.nextLine().trim();
+
+        int id = wiseSayingLastIndex + 1;
+
+        wiseSayings[wiseSayingLastIndex] = new WiseSaying(id,content,author);
+
         wiseSayingLastIndex++;
+
         System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSayingLastIndex));
     }
 }
